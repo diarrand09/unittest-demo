@@ -8,11 +8,11 @@ on:
   # 1. Lorsqu'un push est effectué sur la branche "main".
   push:
     branches:
-      - main
+      - master
   # 2. Lorsqu'une pull request est créée ou mise à jour pour la branche "main".
   pull_request:
     branches:
-      - main
+      - master
 
 # Section "jobs" : définit les tâches à exécuter.
 # Ici, un seul job nommé "test" est défini.
