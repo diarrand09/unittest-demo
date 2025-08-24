@@ -1,30 +1,54 @@
+# Nom du workflow, affiché dans l'onglet "Actions" de GitHub.
+# Ici, "Run Unit Tests" indique que ce workflow exécute des tests unitaires.
 name: Run Unit Tests
 
+# Section "on" : définit les événements qui déclenchent le workflow.
+# Le workflow s'exécute automatiquement dans deux cas :
 on:
+  # 1. Lorsqu'un push est effectué sur la branche "main".
   push:
     branches:
       - main
+  # 2. Lorsqu'une pull request est créée ou mise à jour pour la branche "main".
   pull_request:
     branches:
       - main
 
+# Section "jobs" : définit les tâches à exécuter.
+# Ici, un seul job nommé "test" est défini.
 jobs:
   test:
+    # Spécifie le type de machine virtuelle pour exécuter le job.
+    # "ubuntu-latest" est une machine Linux fournie par GitHub, optimisée pour la plupart des workflows.
     runs-on: ubuntu-latest
 
+    # Section "steps" : liste les étapes à exécuter dans le job.
+    # Chaque étape est une action ou une commande.
     steps:
+      # Étape 1 : Cloner le dépôt GitHub.
+      # Utilise l'action officielle "actions/checkout@v4" pour récupérer le code du dépôt.
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Étape 2 : Configurer l'environnement Python.
+      # Utilise l'action officielle "actions/setup-python@v5" pour installer Python.
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
+          # Spécifie la version de Python à utiliser.
+          # "3.x" signifie la dernière version de Python 3 disponible (ex. 3.9, 3.10).
           python-version: '3.x'
 
+      # Étape 3 : Installer les dépendances Python.
+      # Exécute des commandes shell pour mettre à jour pip et installer unittest2.
       - name: Install dependencies
         run: |
+          # Met à jour pip (gestionnaire de paquets Python) pour éviter les problèmes de compatibilité.
           python -m pip install --upgrade pip
+          # Installe unittest2, une version améliorée de la bibliothèque unittest (bien que unittest soit inclus dans Python).
           pip install unittest2
 
+      # Étape 4 : Exécuter les tests unitaires.
+      # Lance la commande pour exécuter le fichier de tests "test_mot.py" avec unittest.
       - name: Run tests
         run: python -m unittest test_mot.py
