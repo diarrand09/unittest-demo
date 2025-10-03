@@ -3,9 +3,9 @@ import unittest
 class TestMot(unittest.TestCase):
     def test_mettrep_maj(self):
         mot = "hello"
-        resultat_attendu = "pello"
+        resultat_attendu = "Hello"
         self.assertEqual(mot.capitalize(), resultat_attendu)
-
+#correction ici
     def test_convertir_maj(self):
         mot = "hello"
         resultat_attendu = "HELLO"
